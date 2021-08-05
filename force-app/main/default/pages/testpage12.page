@@ -1,0 +1,17 @@
+<apex:page >
+    <h1>TestPage</h1>
+    <apex:remoteObjects jsNamespace="rm">
+        <apex:remoteObjectModel name="Contact" fields="FirstName,LastName,Phone" />
+    </apex:remoteObjects>   
+    <script>
+        var ct = new rm.Contact({ 
+            FirstName: "Aldo",
+            LastName: "Michaels", 
+            Phone: "(415) 555-1212"
+        });     
+        var cts = new rm.Contact();
+        cts.retrieve({ limit: 10 }, function(error, records, event){ 
+            console.log(records);
+        });
+    </script>
+</apex:page>

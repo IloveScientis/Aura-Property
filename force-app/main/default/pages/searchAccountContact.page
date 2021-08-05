@@ -1,0 +1,21 @@
+<apex:page controller="searchContactAccountName">
+  <apex:form >
+      <apex:pageBlock title="Search Account Contact Name">
+          <apex:pageBlockSection >
+               <apex:pageBlockSectionItem >
+               <apex:inputtext /> 
+           <apex:commandButton value="{!searchValue}"/>
+           </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection collapsible="false">
+              <apex:pageBlockSectionItem >
+                  <apex:pageBlockTable value="{!displayAccountContact}" var="ca">
+                      <apex:column headerValue="Record Name"/>
+                      <apex:column headerValue="Record Type"/>
+                      <apex:column headerValue="Click To Open"/>
+                  </apex:pageBlockTable>
+              </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

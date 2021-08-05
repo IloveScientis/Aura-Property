@@ -1,0 +1,93 @@
+<apex:page standardStylesheets="false" controller="test1Controller" sidebar="false">
+    
+<apex:remoteObjects jsNamespace="rm">
+<apex:remoteObjectModel name="Contact" jsShorthand="contact" fields="Id,Counter__c">
+</apex:remoteObjectModel>
+</apex:remoteObjects> 
+<apex:remoteObjects jsNamespace="ra">
+<apex:remoteObjectModel name="Account" jsShorthand="account" fields="Id,Counter__c">
+</apex:remoteObjectModel>
+</apex:remoteObjects> 
+<script>
+    // //'[value="' + checkval + '"]'  
+   
+   
+        function updateContact(id){
+        var ct = new rm.Contact({
+            Id:id,
+            Counter__c:document.getElementById(''+id+'').value
+        });
+        ct.update(createCallback);
+        function createCallback(err, id){
+        if (err) {
+            displayError(err);
+        }
+        else{
+            alert("Successfully update Record with Id :"+ id);          
+        }
+    }
+    }
+    function updateAccount(id){
+        var ct = new ra.Account({
+            Id:id,
+            Counter__c:document.getElementById(''+id+'').value
+        });
+        ct.update(createCallback);
+        function createCallback(err, id){
+        if (err) {
+            displayError(err);
+        }
+        else{
+            alert("Successfully update Record with Id :"+ id);          
+        }
+    }
+    }
+    
+</script>
+<head>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+</head>
+  <apex:form id="myform" >
+      <apex:pageBlock title="Task 3" id="pageBlock">
+          <apex:pageBlockSection >
+               <apex:pageBlockSectionItem >
+               <apex:inputtext value="{!searchValue}"/> 
+           <apex:commandButton value="Search"  action="{!dosearch1}" reRender="pageBlock"/>
+           </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection collapsible="false" columns="1">
+             
+            <table class="table table-sm table-hover text-center" style="width:90%">
+                <thead style="width:90%" >
+                  <tr>                  
+                    <th scope="col" style="width:80%">Record Name</th>
+                    <th scope="col" style="width:80%">Record Type</th>
+                    <th scope="col">Counter</th>
+                    <th scope="col">Click to update counter</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!displayWrapperList}" var="ca" >
+                        <tr>
+                            <td style="width:80%">{!ca.contactName}</td>
+                            <td style="width:80%">{!ca.contactType}</td>
+                            <td><input type="number" id="{!ca.contactLink}" name="concounter" /></td>
+                            <td ><button type="button" id ="{!ca.isClicked}" data-dismiss="modal" class="btn btn-link" onclick="updateContact('{!ca.contactLink}'); return false;">Increment Counter</button></td>
+                          </tr>
+                    </apex:repeat>
+                    <apex:repeat value="{!filterWrapperList}" var="ac">
+                          <tr>
+                            <td>{!ac.accountName}</td>
+                            <td>{!ac.accountType}</td> 
+                            <td><input type="number" id="{!ac.accountLink}" name="acounter"/></td>   
+                            <td><button type="button"  data-dismiss="modal"  class="btn btn-link" onclick="updateAccount('{!ac.accountLink}'); return false;">Increment Counter</button></td>
+                          </tr>
+                    </apex:repeat>
+                </tbody>
+              </table>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</apex:page>
