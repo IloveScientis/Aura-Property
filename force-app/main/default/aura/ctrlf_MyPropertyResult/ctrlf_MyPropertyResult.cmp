@@ -1,6 +1,8 @@
 <aura:component  controller="PropertyDetails" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes"  access="global" >
     <aura:attribute name="propertyList" type="Property__c[]"></aura:attribute>
-     <aura:attribute name="propertiesFound" type="boolean"></aura:attribute>
+     <aura:attribute name="propertiesFound" type="boolean" default="false"></aura:attribute>
+     <aura:attribute name="openOwnerDetails" type="boolean" default ="false"></aura:attribute>
+     <aura:attribute name="proOwnerId" type="String"></aura:attribute>
     <aura:handler name="init" value="{!this}" action="{!c.fetchAllProperty}"/>    
      <aura:if isTrue="{!v.propertiesFound}">
         <lightning:layout multipleRows="true">
@@ -18,9 +20,6 @@
                                   <p style="color:red">INR: {!pro.Rent__c}</p>
                               </lightning:layoutItem>
                               <lightning:layoutItem size="12">
-                                  <p style="color:red">INR: {!pro.Rent__c}</p>
-                              </lightning:layoutItem>
-                              <lightning:layoutItem size="12">
                                 <p >{!pro.No_Of_Bathroom__c} BHK house for Rent {!pro.Covered_Area_sqft__c} sqft</p>
                               </lightning:layoutItem>
                               <lightning:layoutItem size="12">
@@ -30,6 +29,23 @@
                                 <p>{!pro.No_of_Bedroom__c} Room {!pro.No_Of_Bathroom__c} Bathroom {!pro.Furnished_Type__c}</p>
                                 </lightning:layoutItem>
                           </lightning:card> 
+
+                          <div class="slds-p-top_small">
+                            <lightning:buttonGroup>
+                                <lightning:button class="btnStyle" variant="success" label="Owner Details"
+                                                  value ="{!pro.Property_Owner__c}" onclick="{!c.ownerDetailsClick}"
+                                >
+                                </lightning:button>
+                                <lightning:button class="btnStyle" variant="success" label="Enquiry"
+                                value ="{!pro.Id}" onclick="{!c.feedbackClicked}"
+                                >         
+                                </lightning:button>
+                                <lightning:button class="btnStyle" variant="success" label="Property Details"
+                                                  value ="{!pro.Id}" onclick="{!c.NavigateToProDetails}"
+                                >
+                                </lightning:button>
+                            </lightning:buttonGroup>
+                          </div>
                         </lightning:layoutItem>      
                       </lightning:layout>
                   </div>
@@ -42,4 +58,27 @@
     </aura:set>
     
   </aura:if> 
+
+  <!-- Owner Detail Section Start-->
+    <aura:if isTrue="{!v.openOwnerDetails}">
+      <div style="margin-top:5%;"> 
+        <section role="dialog" tabindex="1" class ="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+              <header class="slds-modal__header">
+                  <lightning:card title="Property Owner Details" iconName="standard:people">
+                      <lightning:buttonIcon class="slds-modal__close" iconName="utility:close" onclick="{!c.closeOwnerModal}">
+
+                      </lightning:buttonIcon>
+                  </lightning:card>
+
+              </header>
+              <div class="slds-modal__content slds-p-around_medium">
+                <c:ctrlf_MyPropertyOwner propertyOwnerId="{!v.proOwnerId}"></c:ctrlf_MyPropertyOwner>   
+
+              </div>
+            </div>
+        </section>
+      </div>
+    </aura:if>
+
 </aura:component>
