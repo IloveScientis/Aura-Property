@@ -1,6 +1,6 @@
 ({
     doInit: function(component, event, helper) {
-        helper.doInitHelper(component, event);
+        helper.doInitHelper(component, event,helper);
     },
  
     /* javaScript function for pagination */
