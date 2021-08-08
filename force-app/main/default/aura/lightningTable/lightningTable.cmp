@@ -1,0 +1,21 @@
+<!-- <aura:component controller="lightningTableController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:appHostable" access="global" >
+<aura:attribute name="title" type="string" default="My Interations" />
+<aura:attribute name="recLimit" type="String" default="10" /> 
+<aura:attribute name="object" type="string" default="Account" />
+<aura:attribute name="fields" type="String" default="Id" />   
+<aura:attribute name="sortedBy" type="string" default="Id" />
+<aura:attribute name="sortedDirection" type="string" default="DESC" />
+<aura:attribute name="mydata" type="object" />
+<aura:attribute name="mycolumn" type="object" />
+
+<aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+<lightning:card title="{!v.title}" >
+
+    <lightning:datatable data="{!v.mydata}" columns="{!v.mycolumn}" 
+                         onsort="{!c.updateColumnSorting}" sortedBy="{!v.sortedBy}" 
+                         sortedDirection="{!v.sortedDirection}" 
+                         hideCheckboxColumn="true" 
+                         onrowselection="{!c.getSelectedName}" keyField="Id" />
+</lightning:card>
+</aura:component> -->

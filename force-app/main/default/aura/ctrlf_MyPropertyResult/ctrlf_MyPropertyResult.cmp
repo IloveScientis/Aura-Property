@@ -3,7 +3,16 @@
      <aura:attribute name="propertiesFound" type="boolean" default="false"></aura:attribute>
      <aura:attribute name="openOwnerDetails" type="boolean" default ="false"></aura:attribute>
      <aura:attribute name="proOwnerId" type="String"></aura:attribute>
+     <aura:attribute name="propertyId" type="String"></aura:attribute>
+     <aura:attribute name="openEnquieryDetails" type="boolean" default="false"></aura:attribute>
     <aura:handler name="init" value="{!this}" action="{!c.fetchAllProperty}"/>    
+  <!-- Navigation Start-->
+    <lightning:navigation aura:id="navService"></lightning:navigation>
+    <aura:attribute name="pageReference" type="object"></aura:attribute>
+    <aura:attribute name="url" type="string"></aura:attribute>
+  <!-- Navigation End-->
+  <aura:handler name="ctrlf_propertyFilterEvent" event="c:ctrlf_PropertyFilterEvent" action="{!c.handlePropertyFilter}"/>
+  <c:ctrlf_propertyFilter ></c:ctrlf_propertyFilter>
      <aura:if isTrue="{!v.propertiesFound}">
         <lightning:layout multipleRows="true">
           <aura:iteration items="{!v.propertyList}" var="pro">
@@ -80,5 +89,36 @@
         </section>
       </div>
     </aura:if>
+
+<!-- Property Enquiery section start-->
+
+<aura:if isTrue="{!v.openEnquieryDetails}">
+
+  <div style="margin-top:5%">
+
+  <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+
+        <div class="slds-modal__container">
+
+          <header class="slds-modal__header">
+
+              <lightning:buttonIcon  class="slds-modal__close" iconName="utility:close"
+
+                                            onclick="{!c.closeEnquieryModal}"></lightning:buttonIcon>
+
+              </header>
+
+              <div class="slds-modal__content slds-p-around_medium" >
+
+              <c:ctrlf_MyPropertyEnquiry propertyId="{!v.propertyId}"></c:ctrlf_MyPropertyEnquiry>
+
+              </div>
+
+          </div>
+      </section>   
+
+  </div>
+
+</aura:if>
 
 </aura:component>

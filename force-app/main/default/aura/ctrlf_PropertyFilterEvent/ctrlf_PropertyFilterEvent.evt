@@ -1,0 +1,6 @@
+<aura:event type="component" description="Event template">
+<aura:attribute name="locFilter" type="string"></aura:attribute>
+<aura:attribute name ="bedRoomFilter" type="string"></aura:attribute>
+<aura:attribute name="bathRoomFilter" type="string"></aura:attribute>
+<aura:attribute name="budgetFilter" type="string"></aura:attribute>
+</aura:event>
